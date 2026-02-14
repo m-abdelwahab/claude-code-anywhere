@@ -114,9 +114,11 @@ if [ "$AUTH_CONFIGURED" != "true" ]; then
     exit 1
 fi
 
-# Enable password auth in sshd config if a password is set
+# Enable password auth in sshd config only if a password is set
 if [ -n "${SSH_PASSWORD:-}" ]; then
     echo "PasswordAuthentication yes" | sudo tee /etc/ssh/sshd_config.d/99-password-auth.conf > /dev/null
+else
+    echo "PasswordAuthentication no" | sudo tee /etc/ssh/sshd_config.d/99-password-auth.conf > /dev/null
 fi
 
 # --- Persist environment variables for SSH sessions ------------------------
