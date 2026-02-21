@@ -154,7 +154,7 @@ ENV_SECRETS="$HOME/.env_secrets"
 : > "$ENV_SECRETS"            # truncate / create
 chmod 600 "$ENV_SECRETS"
 
-ENV_VARS=(ANTHROPIC_API_KEY)
+ENV_VARS=(ANTHROPIC_API_KEY OPENAI_API_KEY)
 for var in "${ENV_VARS[@]}"; do
     val="${!var:-}"
     if [ -n "$val" ]; then
@@ -179,6 +179,7 @@ fi
 # --- MOTD / welcome message ------------------------------------------------
 AGENT_LIST=""
 command -v claude   >/dev/null 2>&1 && AGENT_LIST="${AGENT_LIST}  claude          — Claude Code (Anthropic)\n"
+command -v codex    >/dev/null 2>&1 && AGENT_LIST="${AGENT_LIST}  codex           — Codex CLI (OpenAI)\n"
 
 SKILLS_COUNT=0
 if [ -d /opt/default-skills ]; then
@@ -237,6 +238,7 @@ alias la='ls -lAhF --color=auto'
 alias gs='git status'
 alias gd='git diff'
 alias cc='claude'
+alias cx='codex'
 alias ghlogin='gh auth login && gh auth setup-git'
 
 # Re-display the welcome MOTD

@@ -46,6 +46,9 @@ RUN curl -fsSL https://claude.ai/install.sh | bash \
     && cp /home/user/.local/bin/claude /opt/claude-local/bin/claude \
     && sudo ln -sf /opt/claude-local/bin/claude /usr/local/bin/claude
 
+# OpenAI Codex CLI
+RUN sudo npm install -g @openai/codex
+
 # Install agent skills from registry, then stage them to /opt so the
 # entrypoint can copy them into the persistent volume on each boot.
 RUN npx -y skills add railwayapp/railway-skills --all \
